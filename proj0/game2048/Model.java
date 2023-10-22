@@ -125,19 +125,23 @@ public class Model extends Observable {
                 Tile currenttile = this.board.tile(col, row);
                 if(currenttile!= null)
                 {
-                    changed = true;
                     Tile uptile = this.board.tile(col, upplace);
                     if(uptile == null) {
                         this.board.move(col, upplace, currenttile);
+                        changed = true;
                     }
                     else if(uptile.value() == currenttile.value()) {
                         this.board.move(col, upplace, currenttile);
                         this.score += 2 * currenttile.value();
                         upplace--;
+                        changed = true;
                     }
                     else {
                         upplace--;
-                        this.board.move(col, upplace, currenttile);
+                        if(upplace != row) {
+                            this.board.move(col, upplace, currenttile);
+                            changed = true;
+                        }
                     }
 
                 }
